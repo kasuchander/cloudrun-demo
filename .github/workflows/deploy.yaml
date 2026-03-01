@@ -26,7 +26,6 @@ jobs:
            workload_identity_provider: projects/818786073643/locations/global/workloadIdentityPools/github-pool/providers/github-provider        
            service_account: github-sa@project-with-cka.iam.gserviceaccount.com
 
-
       - name: Setup gcloud
         uses: google-github-actions/setup-gcloud@v2
 
