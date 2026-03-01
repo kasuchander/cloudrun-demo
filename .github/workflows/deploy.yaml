@@ -17,30 +17,25 @@ env:
 jobs:
   deploy:
     runs-on: ubuntu-latest
-
-    steps: Checkout Code
-    - name: checkout
-      uses: actions/checkout@v4
+    steps: 
+      - name: checkout
+        uses: actions/checkout@v4
       
-      # Authenticate to GCP using ODIC
-    - name: authenticate to GCP
-      uses: google-github-actions/auth@v2
-      with:
-        workload_identity_provider: projects/818786073643/locations/global/workloadIdentityPools/github-pool/providers/github-provider        service_account: github-sa@project-with-cka.iam.gserviceaccount.com
-
-      # Setup gcloud
-    - name: Setup gcloud
-      uses: google-github-actions/setup-gcloud@v2
-
-      # Build and Push image 
-    - name: Build and Push Image
-      run: |
-        gcloud build submit \
-           --tag ${REGION}-docker.pkg.dev/${PROJECT_ID}/${REPO_NAME}/${SERVICE_NAME}:${{ github.sha }}
+      - name: authenticate to GCP
+        uses: google-github-actions/auth@v2
+        with:
+           workload_identity_provider: projects/818786073643/locations/global/workloadIdentityPools/github-pool/providers/github-provider        service_account: github-sa@project-with-cka.iam.gserviceaccount.com
 
 
-      # Deploy to Cloud Run
-    - name: Deploy to cloud run 
-      run: |
-        gcloud run deploy ${SERVICE_NAME} --image ${REGION}-docker.pkg.dev/${PROJECT_ID}/${REPO_NAME}/${SERVICE_NAME}:${{ github.sha }} --region ${REGION} --platform managed --allow-unauthenticated
+      - name: Setup gcloud
+        uses: google-github-actions/setup-gcloud@v2
+
+      - name: Build and Push Image
+        run: |
+          gcloud build submit \
+            --tag ${REGION}-docker.pkg.dev/${PROJECT_ID}/${REPO_NAME}/${SERVICE_NAME}:${{ github.sha }}
+
+      - name: Deploy to cloud run 
+        run: |
+           gcloud run deploy ${SERVICE_NAME} --image ${REGION}-docker.pkg.dev/${PROJECT_ID}/${REPO_NAME}/${SERVICE_NAME}:${{ github.sha }} --region ${REGION} --platform managed --allow-unauthenticated
 
