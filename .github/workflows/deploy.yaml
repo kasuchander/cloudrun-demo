@@ -42,4 +42,3 @@ jobs:
       - name: Deploy to cloud run 
         run: |
            gcloud run deploy ${SERVICE_NAME} --image ${REGION}-docker.pkg.dev/${PROJECT_ID}/${REPO_NAME}/${SERVICE_NAME}:${{ github.sha }} --region ${REGION} --platform managed --allow-unauthenticated
-
