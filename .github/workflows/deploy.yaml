@@ -31,9 +31,14 @@ jobs:
 
       - name: Build and Push Image
         run: |
-          gcloud build submit \
-            --tag ${REGION}-docker.pkg.dev/${PROJECT_ID}/${REPO_NAME}/${SERVICE_NAME}:${{ github.sha }}
-
+          gcloud builds submit \
+            --tag ${{ env.REGION }}-docker.pkg.dev/${{ env.PROJECT_ID }}/${{ env.REPO_NAME }}/${{ env.SERVICE_NAME }}:${{ github.sha }}
+        env:
+           PROJECT_ID: project-with-cka
+           REGION: us-central1
+           SERVICE_NAME: cloudrun-demo
+           REPO_NAME: cloudrun-demo
+        
       - name: Deploy to cloud run 
         run: |
            gcloud run deploy ${SERVICE_NAME} --image ${REGION}-docker.pkg.dev/${PROJECT_ID}/${REPO_NAME}/${SERVICE_NAME}:${{ github.sha }} --region ${REGION} --platform managed --allow-unauthenticated
