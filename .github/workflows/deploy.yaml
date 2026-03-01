@@ -24,7 +24,8 @@ jobs:
       - name: authenticate to GCP
         uses: google-github-actions/auth@v2
         with:
-           workload_identity_provider: projects/818786073643/locations/global/workloadIdentityPools/github-pool/providers/github-provider        service_account: github-sa@project-with-cka.iam.gserviceaccount.com
+           workload_identity_provider: projects/818786073643/locations/global/workloadIdentityPools/github-pool/providers/github-provider        
+           service_account: github-sa@project-with-cka.iam.gserviceaccount.com
 
 
       - name: Setup gcloud
