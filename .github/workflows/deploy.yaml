@@ -13,7 +13,7 @@ env:
   SERVICE_NAME: cloudrun-demo
   REPO_NAME: cloudrun-repo
 
-jobs:
+jobs: 
   deploy:
     runs-on: ubuntu-latest
     steps: 
