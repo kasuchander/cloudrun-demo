@@ -32,14 +32,14 @@ jobs:
       - name: Build and Push Image
         run: |
           gcloud builds submit \
-            --tag ${{ env.REGION }}-docker.pkg.dev/${{ env.PROJECT_ID }}/${{ env.REPO_NAME }}/${{ env.SERVICE_NAME }}:${{ github.sha }} \
+            --tag ${REGION}-docker.pkg.dev/${PROJECT_ID}/${AR_REPO}/${IMAGE_NAME}:${{ github.sha }} \
             --quiet
             
         env:
            PROJECT_ID: project-with-cka
            REGION: us-central1
-           SERVICE_NAME: cloudrun-demo
-           REPO_NAME: cloudrun-demo
+           AR_REPO: cloudrun-repo
+           IMAGE_NAME: cloudrun-demo
         
       - name: Deploy to cloud run 
         run: |
